@@ -22,16 +22,17 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'TODO' # TODO
+SECRET_KEY = os.environ['ENERGIEWENDE_SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 
 USE_X_FORWARDED_HOST = True
 ALLOWED_HOSTS = [
-    'news.python.sc',
-    'localhost',
+    'energiewende.io',
+    'www.energiewende.io',
+    'ipv6.energiewende.io'
 ]
 
 
@@ -96,12 +97,23 @@ WSGI_APPLICATION = 'hnclone.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#    }
+#}
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ['ENERGIEWENDE_DB_NAME'],
+        'USER': os.environ['ENERGIEWENDE_DB_USER'],
+        'PASSWORD': os.environ['ENERGIEWENDE_DB_PASSWORD'],
+        'HOST': os.environ['ENERGIEWENDE_DB_HOST'],
+        'PORT': '',
     }
 }
+
 
 
 # Password validation
@@ -144,6 +156,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+STATIC_ROOT = '/var/www/energiewende.io/static'
 
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
@@ -166,9 +179,16 @@ LOGIN_REDIRECT_URL = '/'
 
 
 
-ACCEPT_UNINVITED_REGISTRATIONS = False
+ACCEPT_UNINVITED_REGISTRATIONS = True
 
 
-SITE_NAME = 'Pythonic News'
-SITE_URL = 'https://news.python.sc'
-SITE_DOMAIN = 'news.python.sc'
+SITE_NAME = 'Energiewende.io News'
+SITE_URL = 'https://energiewende.io'
+SITE_DOMAIN = 'energiewende.io'
+
+EMAIL_HOST = os.environ['ENERGIEWENDE_EMAIL_HOST']
+EMAIL_HOST_USER = os.environ['ENERGIEWENDE_EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = os.environ['ENERGIEWENDE_EMAIL_HOST_PASSWORD']
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'Energiewende.io News <news@energiewende.io>'
