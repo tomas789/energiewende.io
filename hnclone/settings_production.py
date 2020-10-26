@@ -1,6 +1,14 @@
 import os
 from .settings_base import *
 
+
+ALLOWED_HOSTS = [
+    'energiewende.io',
+    'www.energiewende.io',
+    'ipv6.energiewende.io'
+]
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',

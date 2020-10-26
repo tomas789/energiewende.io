@@ -29,11 +29,7 @@ DEBUG = True
 
 
 USE_X_FORWARDED_HOST = True
-ALLOWED_HOSTS = [
-    'energiewende.io',
-    'www.energiewende.io',
-    'ipv6.energiewende.io'
-]
+ALLOWED_HOSTS = []
 
 
 # Application definition
